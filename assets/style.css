@@ -1,0 +1,98 @@
+/* Contenedor del slider */
+.cps-slider {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Wrapper de slides (contenido AJAX) */
+.cps-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Cada slide (se posiciona de forma absoluta) */
+.cps-slide {
+    position: absolute;
+    top: 50%;
+    width: 60%;
+    height: 80%;
+    transform: translateY(-50%);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+/* Slide activo (centrado) */
+.cps-slide.active {
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Slide previo (lado izquierdo) */
+.cps-slide.prev {
+    left: 10%;
+    transform: translate(0, -50%) scale(0.8);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/* Slide siguiente (lado derecho) */
+.cps-slide.next {
+    left: 70%;
+    transform: translate(0, -50%) scale(0.8);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/* Flechas de navegación */
+#cps-prev,
+#cps-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 2em;
+    padding: 0 10px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+#cps-prev {
+    left: 10px;
+}
+
+#cps-next {
+    right: 10px;
+}
+
+/* Dots de navegación inferior */
+.cps-dots {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    z-index: 4;
+}
+
+.cps-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.cps-dot.active {
+    background: #0073aa;
+}
