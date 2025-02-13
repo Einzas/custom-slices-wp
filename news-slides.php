@@ -36,12 +36,19 @@ function cps_register_settings()
 add_action('admin_init', 'cps_register_settings');
 
 // Registrar widget en Elementor
-function cps_register_elementor_widget($widgets_manager)
-{
-	require_once plugin_dir_path(__FILE__) . 'widgets/slider-widget.php';
-	$widgets_manager->register(new \News_Slides_Widget());
+function cps_register_elementor_widget( $widgets_manager ) {
+	// Asegúrate de que Elementor esté cargado.
+	if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
+		return;
+	}
+
+	// Incluye el archivo del widget.
+	require_once plugin_dir_path( __FILE__ ) . 'widgets/slider-widget.php';
+
+	// Registra el widget usando el nombre completo con namespace.
+	$widgets_manager->register( new \Elementor\News_Slides_Widget() );
 }
-add_action('elementor/widgets/register', 'cps_register_elementor_widget');
+add_action( 'elementor/widgets/register', 'cps_register_elementor_widget' );
 
 
 // Registrar bloque de Gutenberg
@@ -118,8 +125,14 @@ add_action('enqueue_block_editor_assets', 'cps_enqueue_block_editor_assets');
 function cps_render_slider( $attributes ) {
 	ob_start();
 
-	// En el editor (vista previa del bloque)
-	if ( defined( 'REST_REQUEST' ) && REST_REQUEST && isset( $_GET['context'] ) && $_GET['context'] === 'edit' ) {
+	// Detecta si estamos en modo edición: admin, Gutenberg (REST con context=edit) o Elementor
+	$elementor_edit = false;
+	if ( function_exists( 'elementor_editor_mode' ) ) {
+		$elementor_edit = elementor_editor_mode();
+	}
+
+	if ( is_admin() || ( defined('REST_REQUEST') && REST_REQUEST && isset($_GET['context']) && $_GET['context'] === 'edit' ) || $elementor_edit ) {
+
 		$num_posts = ! empty( $attributes['numPosts'] ) ? intval( $attributes['numPosts'] ) : 5;
 		$year      = ! empty( $attributes['year'] ) ? sanitize_text_field( $attributes['year'] ) : '';
 
@@ -128,6 +141,7 @@ function cps_render_slider( $attributes ) {
 			'posts_per_page' => $num_posts,
 			'post_status'    => 'publish',
 		);
+
 		if ( $year ) {
 			$query_args['date_query'] = array(
 				array(
@@ -171,12 +185,15 @@ function cps_render_slider( $attributes ) {
             </div>
         </div>
 		<?php
+
 	} else {
-		// Frontend: se carga la plantilla que usa AJAX
+		// En frontend, usa la plantilla que carga posts vía AJAX
 		include plugin_dir_path( __FILE__ ) . 'templates/slider-template.php';
 	}
+
 	return ob_get_clean();
 }
+
 
 add_shortcode('custom_post_slider', 'cps_render_slider');
 
