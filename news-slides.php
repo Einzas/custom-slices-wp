@@ -168,7 +168,7 @@ function cps_render_slider( $attributes ) {
                                     </div>
                                     <div class="cps-content">
                                         <h3 class="cps-title"><?php the_title(); ?></h3>
-                                        <p class="cps-p"><?php echo wp_trim_words( get_the_excerpt(), 20 ); ?></p>
+                                        <p class="cps-p"><?php echo wp_trim_words( get_the_excerpt(), 15 ); ?></p>
                                         <a href="<?php the_permalink(); ?>" class="cps-read-more">Ver más</a>
                                     </div>
                                 </div>

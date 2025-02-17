@@ -1,9 +1,9 @@
 /* Contenedor del slider */
 .cps-slider {
     position: relative;
-    width: 80%;
-    max-width: 800px;
-    height: 500px;
+    width: 800px;
+    max-width: 1200px;
+    height: 700px;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -13,6 +13,15 @@
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+.cps-card {
+    /* Borde verde alrededor de todo el recuadro */
+    border: 4px solid #1a6b30;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
 }
 
 /* Cada slide (se posiciona de forma absoluta) */
@@ -99,52 +108,58 @@
     background: #0073aa;
 }
 
+/* Botón "Ver más" */
 .cps-read-more {
-    position: absolute;
-    bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #0073aa;
-    color: #fff;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    z-index: 4;
-    border-radius: 50px;
+    display: inline-block;
+    background: #fff;
+    color: #1a6b30;
+    padding: 5px 15px;
+    margin-top: 10px;
+    text-decoration: none;
+    border-radius: 0; /* Quita bordes redondeados si deseas */
+    border: 2px solid #1a6b30;
+    font-weight: bold;
 }
 
 .cps-image {
     width: 100%;
-    height: 50%;
-    background-size: cover;
-    background-position: center;
+    height: 70%; /* 60% del alto para la imagen */
+    background-color: #c5e1c5; /* Color de fondo suave (opcional) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Oculta desbordes */
 }
 
 .cps-image img {
     width: 100%;
-    height: 200px;
-    object-fit: contain;
+    height: auto; /* Ajusta la altura manteniendo proporción */
+    object-fit: contain; /* Rellena sin distorsionar */
 }
 
+/* Contenedor del texto (abajo) */
 .cps-content {
     width: 100%;
-    height: 50%;
+    height: 40%; /* 40% del alto para el texto */
+    background-color: #1a6b30;
+    color: #fff;
     padding: 10px;
     box-sizing: border-box;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.3);
-    text-decoration: none;
+    position: relative;
 }
+
 
 .cps-title {
-    font-size: 1.5em;
+    font-size: 1.2em;
     margin: 0;
     font-weight: bold;
+    color: #fff !important;
 }
 
+/* Párrafo */
 .cps-p {
-    font-size: .75em;
-    font-weight: lighter;
-    text-decoration: none;
-    margin: 0;
+    font-size: 0.9em;
+    font-weight: normal;
+    margin: 8px 0 0 0;
+    color: #fff;
 }
